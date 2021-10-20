@@ -48,7 +48,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="-" />
+                android:text="-"
+                android:onClick="changeTip"/>
 
             <TextView
                 android:id="@+id/tipPercentTextView"
@@ -56,11 +57,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:text="20" />
+
             <Button
                 android:id="@+id/increaseTipButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="changeTip"
                 android:text="+" />
         </LinearLayout>
 
@@ -83,26 +86,6 @@
                 android:layout_weight="1"/>
             <TextView
                 android:id="@+id/tipAmountTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="$0.00" />
-        </LinearLayout>
-
-        <!-- Net Amount Row -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="5">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Net Amount" />
-            <TextView
-                android:id="@+id/netAmountTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
@@ -153,8 +136,29 @@
             </RadioGroup>
         </LinearLayout>
 
+        <!-- Net Amount Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Net Amount" />
+            <TextView
+                android:id="@+id/netAmountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="$0.00" />
+        </LinearLayout>
+
         <!-- Total Amount Row -->
         <LinearLayout
+            android:id="@+id/totalPerPersonRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
