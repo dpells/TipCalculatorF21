@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TipCalculatorF21</string>
+    <string name="bill_amount">Bill Amount</string>
 </resources>
