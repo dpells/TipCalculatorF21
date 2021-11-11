@@ -1,4 +1,33 @@
 <resources>
     <string name="app_name">TipCalculatorF21</string>
     <string name="bill_amount">Bill Amount</string>
+
+    <!-- These are the values to display -->
+    <!-- entries -->
+    <string-array name="rounding_text">
+        <item>No rounding</item>
+        <item>Round tip</item>
+        <item>Round total</item>
+    </string-array>
+
+
+    <string name="no_rounding">No Rounding</string>
+    <string name="round_tip">Round Tip</string>
+    <string name="round_total">Round Total</string>
+    <!-- we can't access the string-array items, so it's easier to define them separately -->
+    <string-array name="rounding_options">
+        <item>@string/no_rounding</item>
+        <item>@string/round_tip</item>
+        <item>@string/round_total</item>
+    </string-array>
+
+    <!-- rounding indexes -->
+    <string name="no_rounding_i">0</string>
+    <string name="round_tip_i">1</string>
+    <string name="round_total_i">2</string>
+    <string-array name="rounding_indexes">
+        <item>@string/no_rounding_i</item>
+        <item>@string/round_tip_i</item>
+        <item>@string/round_total_i</item>
+    </string-array>
 </resources>

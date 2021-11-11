@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:key="save_values_pref"
+        android:title="Save values"
+        android:defaultValue="true"
+        android:summary="If enabled, values will be saved when the app is closed"
+        />
+    <SwitchPreference
+        android:key="darkMode"
+        android:title="Dark Mode"
+        android:defaultValue="true"
+        android:enabled="false"
+        />
+
+    <ListPreference
+        android:key="rounding_pref"
+        android:title="Rounding Options"
+        android:summary="How to round the final amounts."
+        android:dialogTitle="Rounding"
+        android:entries="@array/rounding_options"
+        android:entryValues="@array/rounding_indexes"
+        android:defaultValue="@string/no_rounding_i"/>
+</PreferenceScreen>
