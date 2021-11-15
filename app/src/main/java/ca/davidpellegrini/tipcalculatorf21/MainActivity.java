@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -23,14 +25,20 @@ public class MainActivity extends AppCompatActivity
     //Step 3.
         implements View.OnClickListener, TextWatcher, RadioGroup.OnCheckedChangeListener {
 
-    private int tipPercent = 20;
+    private int tipPercent;
     private float netAmount;
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
         setContentView(R.layout.activity_main);
 
+        tipPercent = 20;
 
         // Step 1. declare the Views
         // find them from the layout
@@ -120,8 +128,38 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-//    public static void setTipPercent(float tip){
+        String billAmountString = prefs.getString("bill_amount_pref", "");
+        EditText billAmountET = findViewById(R.id.billAmountEditText);
+        billAmountET.setText(billAmountString);
+
+
+        updateScreen();
+    }
+
+    @Override
+    protected void onPause() {
+        saveData();
+
+        super.onPause();
+    }
+
+    protected void onStop(){
+        saveData();
+
+        super.onStop();
+    }
+
+    protected void onDestroy(){
+        saveData();
+
+        super.onDestroy();
+    }
+
+    //    public static void setTipPercent(float tip){
 //        tipPercent = tip;
 //    }
 //
@@ -296,6 +334,26 @@ public class MainActivity extends AppCompatActivity
         }
         updateScreen();
     }
+
+
+    private void saveData(){
+        SharedPreferences.Editor editor = prefs.edit();
+
+        boolean saveValues = prefs.getBoolean("save_values_pref", false);
+        Log.i("PREFS", Boolean.toString(saveValues));
+        if(saveValues) {
+            EditText billAmountET = findViewById(R.id.billAmountEditText);
+            editor.putString("bill_amount_pref", billAmountET.getText().toString());
+        }
+        else{
+            editor.clear();
+            editor.putBoolean("save_values_pref", false);
+        }
+
+        //editor.commit();
+        editor.apply();
+    }
+
 }
 
 //class ButtonListener implements View.OnClickListener {
