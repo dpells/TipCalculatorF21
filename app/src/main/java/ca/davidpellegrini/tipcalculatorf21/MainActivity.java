@@ -324,7 +324,9 @@ public class MainActivity extends AppCompatActivity
         // convert the TextView into a usable float value
         TextView tipPercentTV = findViewById(R.id.tipPercentTextView);
         // update the tip percent TextView
-        tipPercentTV.setText(String.valueOf(tipPercent));
+        // using NumberFormat will make sure that we always have the right percent format
+        NumberFormat percent = NumberFormat.getPercentInstance();
+        tipPercentTV.setText(percent.format(tipPercent/100));
 
         // "collect the bill from the user"
         EditText billAmountEditText = findViewById(R.id.billAmountEditText);
@@ -383,13 +385,16 @@ public class MainActivity extends AppCompatActivity
         float totalPerPersonAmount = netAmount / numPeople;
 
         NumberFormat currency = NumberFormat.getCurrencyInstance();
-
+        // using NumberFormat we can make sure we always have the right currency format
         // update the TextViews
         TextView tipAmountTextView = findViewById(R.id.tipAmountTextView);
+        // format lets Java take care of the formatting instead of us
         tipAmountTextView.setText(currency.format(tipAmount));
         TextView netAmountTextView = findViewById(R.id.netAmountTextView);
+        // format lets Java take care of the formatting instead of us
         netAmountTextView.setText(currency.format(netAmount));
         TextView totalPerPersonTextView = findViewById(R.id.totalPerPersonTextView);
+        // format lets Java take care of the formatting instead of us
         totalPerPersonTextView.setText(currency.format(totalPerPersonAmount));
     }
 
