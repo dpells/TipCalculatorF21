@@ -128,34 +128,70 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    /*
+        Like onCreate, onResume is a lifecycle method called as we open the app. It is also called
+        when the app comes back from being stopped (hidden), or paused. Since it gets called more
+        often, this is the better place to load any of our saved data
+     */
     @Override
     protected void onResume() {
         super.onResume();
 
+        // first we can retrieve any data we have by getting it from SharedPreferences
+        // each get method has two parts: the KEY (or id) and a default value in case it isn't found
         String billAmountString = prefs.getString("bill_amount_pref", "");
-        EditText billAmountET = findViewById(R.id.billAmountEditText);
-        billAmountET.setText(billAmountString);
+        tipPercent = prefs.getInt("tip_percent_pref", 20);
+        int numPeople = prefs.getInt("num_people_pref", 2);
 
+        // with the saved data we can update our views
+        // in these cases instead of creating a variable, I'm just accessing a View and
+        // "forgetting" about it. In most cases we need a typecast to be able to access methods
+        ((EditText)findViewById(R.id.billAmountEditText)).setText(billAmountString);
+        // if we don't use String.valueOf here, Android will assume tipPercent is a resource ID
+        ((TextView)findViewById(R.id.tipPercentTextView)).setText(String.valueOf(tipPercent));
+        ((SeekBar)findViewById(R.id.tipPercentSeekBar)).setProgress(tipPercent);
+        // for the RadioButtons, we need to figure out which Button to check
+        RadioGroup numPeopleGroup = findViewById(R.id.numPeopleGroup);
+        // in this case since numPeople isn't changing, a switch will do
+        switch(numPeople){
+            case 1:
+                numPeopleGroup.check(R.id.onePersonRadioButton);
+                break;
+            case 3:
+                numPeopleGroup.check(R.id.threePeopleRadioButton);
+                break;
+            case 4:
+                numPeopleGroup.check(R.id.fourPeopleRadioButton);
+                break;
+            // since 2 was our default value before, we can use the same code from the default case
+            case 2:
+            default:
+                numPeopleGroup.check(R.id.twoPeopleRadioButton);
+                break;
+        }
 
+        // once we're done updating our Views, we can use our handy updateScreen method
         updateScreen();
     }
 
+    /*
+        onPause, onStop, and onDestroy are the three lifecycle methods used when closing an app. In this
+        case for absolute safety, I like to call the saveData method for each lifecycle method. It
+        is redundant, but I have seen instances where only providing onPause wasn't enough
+     */
     @Override
     protected void onPause() {
         saveData();
-
         super.onPause();
     }
 
     protected void onStop(){
         saveData();
-
         super.onStop();
     }
 
     protected void onDestroy(){
         saveData();
-
         super.onDestroy();
     }
 
@@ -337,21 +373,48 @@ public class MainActivity extends AppCompatActivity
 
 
     private void saveData(){
+        // in order to save any data, we need to EDIT the SharedPreferences
         SharedPreferences.Editor editor = prefs.edit();
 
+        // we can get any KEY we've saved, including ones from our settings page
+        // here false is a default value in case "save_values_pref" can't be found
         boolean saveValues = prefs.getBoolean("save_values_pref", false);
-        Log.i("PREFS", Boolean.toString(saveValues));
+        //Log.i("PREFS", Boolean.toString(saveValues));
+
+        // if the user checked "Save values"
         if(saveValues) {
+
+            // collect any input the user has entered
             EditText billAmountET = findViewById(R.id.billAmountEditText);
+            RadioGroup numPeopleRD = findViewById(R.id.numPeopleGroup);
+            int checkedID = numPeopleRD.getCheckedRadioButtonId();
+            int numPeople = 2;
+            // here I'm using an if instead of a switch since the IDs can change
+            // with variable data, the if statement is technically more efficient
+            if(checkedID == R.id.onePersonRadioButton)
+                numPeople = 1;
+            // we don't technically need this check since it's our default
+//            else if(checkedID == R.id.twoPeopleRadioButton)
+//                numPeople = 2;
+            else if(checkedID == R.id.threePeopleRadioButton)
+                numPeople = 3;
+            else if(checkedID == R.id.fourPeopleRadioButton)
+                numPeople = 4;
+
+            // we can add KEYS and VALUES to the SharedPreferences
             editor.putString("bill_amount_pref", billAmountET.getText().toString());
+            editor.putInt("num_people_pref", numPeople);
+            editor.putInt("tip_percent_pref", tipPercent);
         }
-        else{
-            editor.clear();
+        else{ //if the user doesn't want to save the data
+            editor.clear(); //we should clear any saved values
+                //then save the fact that we shouldn't save data
             editor.putBoolean("save_values_pref", false);
         }
 
-        //editor.commit();
-        editor.apply();
+        // putting data isn't enough, we also need to commit or apply our changes
+        //editor.commit(); // commit is a synchronous task, so it could take some time
+        editor.apply(); //apply is asynchronous so it is often preferred
     }
 
 }
