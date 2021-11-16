@@ -22,9 +22,20 @@
     </string-array>
 
     <!-- rounding indexes -->
-    <string name="no_rounding_i">0</string>
-    <string name="round_tip_i">1</string>
-    <string name="round_total_i">2</string>
+    <string name="no_rounding_i" translatable="false">0</string>
+    <string name="round_tip_i" translatable="false">1</string>
+    <string name="round_total_i" translatable="false">2</string>
+    <string name="tip_percent">Tip Percent</string>
+    <string name="minus_sign" translatable="false">-</string>
+    <string name="plus_sign" translatable="false">+</string>
+    <string name="tip_amount">Tip Amount</string>
+    <string name="number_of_people">Number of People</string>
+    <string name="_1_person">1 Person</string>
+    <string name="_2_people">2 People</string>
+    <string name="_3_people">3 People</string>
+    <string name="_4_people">4 People</string>
+    <string name="net_amount">Net Amount</string>
+    <string name="total_per_person">Total per Person</string>
     <string-array name="rounding_indexes">
         <item>@string/no_rounding_i</item>
         <item>@string/round_tip_i</item>

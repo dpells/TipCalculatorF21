@@ -2,7 +2,6 @@ package ca.davidpellegrini.tipcalculatorf21;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,12 +20,13 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.NumberFormat;
+
 public class MainActivity extends AppCompatActivity
     //Step 3.
         implements View.OnClickListener, TextWatcher, RadioGroup.OnCheckedChangeListener {
 
     private int tipPercent;
-    private float netAmount;
     private SharedPreferences prefs;
 
     @Override
@@ -75,12 +75,17 @@ public class MainActivity extends AppCompatActivity
         });
         // let AndroidStudio help you finish the listener for the RadioGroup
         //numPeopleGroup.setOnCheckedChangeListener(this);
+        /*
+        AndroidStudio has another interesting way to update this code
         numPeopleGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 updateScreen();
             }
         });
+         */
+        numPeopleGroup.setOnCheckedChangeListener((radioGroup, i) -> updateScreen());
+
         tipPercentTextView.setOnClickListener(this);
 
         tipPercentSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -111,6 +116,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
+        /*
+        IDs aren't great to use for switch statements so I'll switch this to an if statement
         switch (item.getItemId()){
             case R.id.menu_settings:
                 startActivity(new Intent(
@@ -125,6 +132,19 @@ public class MainActivity extends AppCompatActivity
             default:
                 return super.onOptionsItemSelected(item);
         }
+         */
+
+        int menuItemID = item.getItemId();
+        if(menuItemID == R.id.menu_settings)
+            startActivity(new Intent(
+                    getApplicationContext(),
+                    SettingsActivity.class
+                )
+            );
+        else if(menuItemID == R.id.menu_about)
+            Toast.makeText(this, "About Item", Toast.LENGTH_SHORT).show();
+        else
+            return super.onOptionsItemSelected(item);
         return true;
     }
 
@@ -203,14 +223,16 @@ public class MainActivity extends AppCompatActivity
 
     // Step 4. Define what the listener does
     // in our case it's update the tip percent, then do some math and update the display
-    @Override
     /**
-        We're using the main class onClickListener for now. This onClick method will handle
-        any View presses, and will update the rest of the information on the screen
+     We're using the main class onClickListener for now. This onClick method will handle
+     any View presses, and will update the rest of the information on the screen
      */
+    @Override
     public void onClick(View view) {
         //depending on which Button is clicked, increase or decrease the float value
 
+        /*
+        IDs aren't great to use for switch statements so I'll switch this to an if statement
         switch (view.getId()){
             case R.id.decreaseTipButton:
                 tipPercent -= 5;
@@ -229,6 +251,19 @@ public class MainActivity extends AppCompatActivity
                 Log.e("ClickEvent", "You clicked the wrong button");
                 break;
         }
+        */
+        int buttonID = view.getId();
+        if(buttonID == R.id.decreaseTipButton){
+            tipPercent -= 5;
+            if(tipPercent <= 0)
+                tipPercent = 0;
+        }
+        else if(buttonID == R.id.increaseTipButton)
+            tipPercent += 5;
+        else if(buttonID == R.id.tipPercentTextView)
+            Toast.makeText(this, "You found the Easter Egg!", Toast.LENGTH_LONG).show();
+        else
+            Log.e("ClickEvent", "You clicked the wrong button");
 
         // how do I access the SeekBar?
         SeekBar tipPercentSeekBar = findViewById(R.id.tipPercentSeekBar);
@@ -239,7 +274,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-        TextChganedListener - we don't need to track any of the data that's being changed before or
+        TextChangedListener - we don't need to track any of the data that's being changed before or
         after the text is updated, we only care about the change event
      */
     @Override
@@ -275,13 +310,18 @@ public class MainActivity extends AppCompatActivity
      */
     public void updateScreen(){
         Button decreaseButton = findViewById(R.id.decreaseTipButton);
+        /*
+        AndroidStudio has an interesting optimization for us here!
         if(tipPercent == 0){
             decreaseButton.setEnabled(false);
         }
         else{
             decreaseButton.setEnabled(true);
         }
-        // convert the TextView into a useable float value
+         */
+        decreaseButton.setEnabled(tipPercent != 0);
+
+        // convert the TextView into a usable float value
         TextView tipPercentTV = findViewById(R.id.tipPercentTextView);
         // update the tip percent TextView
         tipPercentTV.setText(String.valueOf(tipPercent));
@@ -297,16 +337,18 @@ public class MainActivity extends AppCompatActivity
         // calculate the tip
         float tipAmount = billAmount * (tipPercent / 100f);
         // calculate the total amount of the bill with the tip
-        netAmount = billAmount + tipAmount;
+        float netAmount = billAmount + tipAmount;
 //        Log.d("tipPercent", String.valueOf(tipPercent));
 //        Log.d("tipAmount", String.valueOf(tipAmount));
 
         // figure out how many people are splitting the bill
         RadioGroup numPeopleGroup = findViewById(R.id.numPeopleGroup);
-        int numPeople = 2;
+        int numPeople;
         LinearLayout totalPerPersonRow = findViewById(R.id.totalPerPersonRow);
         totalPerPersonRow.setVisibility(View.VISIBLE);
 
+        /*
+        IDs aren't great to use for switch statements so I'll switch this to an if statement
         switch(numPeopleGroup.getCheckedRadioButtonId()){
             case R.id.onePersonRadioButton: //if(checkedButton == R.id.onePersonRadioButton)
                 numPeople = 1;
@@ -322,34 +364,37 @@ public class MainActivity extends AppCompatActivity
             default: // else
                 numPeople = 2;
         }
+        */
+
+        int numPeopleID = numPeopleGroup.getCheckedRadioButtonId();
         // we don't actually need curly braces, they just help make sure we have less bugs
-        // we could also use a switch statement instead
-//        int checkedButton = numPeopleGroup.getCheckedRadioButtonId(); //this gives the ID of the View
-//        if(checkedButton == R.id.onePersonRadioButton) {
-//            numPeople = 1;
-//        }
-//        else if(checkedButton == R.id.twoPeopleRadioButton) {
-//            numPeople = 2;
-//        }
-//        else if(checkedButton == R.id.threePeopleRadioButton) {
-//            numPeople = 3;
-//        }
-//        else if(checkedButton == R.id.fourPeopleRadioButton) {
-//            numPeople = 4;
-//        }
+        if(numPeopleID == R.id.onePersonRadioButton){
+            numPeople = 1;
+            totalPerPersonRow.setVisibility(View.GONE);
+        }
+        else if(numPeopleID == R.id.threePeopleRadioButton)
+            numPeople = 3;
+        else if(numPeopleID == R.id.fourPeopleRadioButton)
+            numPeople = 4;
+        else
+            numPeople = 2;
 
         //calculate total per person
         float totalPerPersonAmount = netAmount / numPeople;
 
+        NumberFormat currency = NumberFormat.getCurrencyInstance();
+
         // update the TextViews
         TextView tipAmountTextView = findViewById(R.id.tipAmountTextView);
-        tipAmountTextView.setText("$"+ tipAmount);
+        tipAmountTextView.setText(currency.format(tipAmount));
         TextView netAmountTextView = findViewById(R.id.netAmountTextView);
-        netAmountTextView.setText("$"+ netAmount);
+        netAmountTextView.setText(currency.format(netAmount));
         TextView totalPerPersonTextView = findViewById(R.id.totalPerPersonTextView);
-        totalPerPersonTextView.setText("$" + totalPerPersonAmount);
+        totalPerPersonTextView.setText(currency.format(totalPerPersonAmount));
     }
 
+    /*
+    unused methods since we have the onClickListener
     public void decreaseTip(View view){
         tipPercent -= 5;
         updateScreen();
@@ -359,6 +404,7 @@ public class MainActivity extends AppCompatActivity
         tipPercent += 5;
         updateScreen();
     }
+    */
 
     public void changeTip(View view){
         Log.i("OnClickAttribute", "Clicked a button with an attribute");
@@ -419,16 +465,19 @@ public class MainActivity extends AppCompatActivity
 
 }
 
-//class ButtonListener implements View.OnClickListener {
-//    public void onClick(View v){
-//        switch(v.getId()){
-//            case R.id.decreaseTipButton:
-//                MainActivity.tipPercent -= 0.05f;
-//                break;
-//            case R.id.increaseTipButton:
-//                MainActivity.tipPercent += 0.05f;
-//                break;
-//        }
-//        MainActivity.updateScreen();
-//    }
-//}
+/*
+I always find the class version of clickListeners to be less helpful than the onClick method
+class ButtonListener implements View.OnClickListener {
+    public void onClick(View v){
+        switch(v.getId()){
+            case R.id.decreaseTipButton:
+                MainActivity.tipPercent -= 0.05f;
+                break;
+            case R.id.increaseTipButton:
+                MainActivity.tipPercent += 0.05f;
+                break;
+        }
+        MainActivity.updateScreen();
+    }
+}
+*/

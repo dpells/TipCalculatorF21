@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
 
+@SuppressWarnings("deprecation")
 public class SettingsFragment extends PreferenceFragment {
 
     @Override

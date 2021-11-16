@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <!-- Bill Amount Row -->
@@ -23,7 +22,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/bill_amount" />
+                android:text="@string/bill_amount"
+                android:labelFor="@id/billAmountEditText"/>
 
             <EditText
                 android:id="@+id/billAmountEditText"
@@ -32,7 +32,8 @@
                 android:layout_weight="4"
                 android:ems="10"
                 android:inputType="numberDecimal"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:importantForAutofill="no" />
         </LinearLayout>
 
         <!-- Tip Percent Row -->
@@ -45,7 +46,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tip Percent"
+                android:text="@string/tip_percent"
                 android:layout_weight="1"
 
                 style="@style/myTextViewStyle.myLabel"/>
@@ -56,14 +57,13 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:onClick="changeTip"
-                android:text="-" />
+                android:text="@string/minus_sign" />
 
             <TextView
                 android:id="@+id/tipPercentTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="20" />
+                android:layout_weight="2" />
 
             <Button
                 android:id="@+id/increaseTipButton"
@@ -71,7 +71,7 @@
                 android:layout_height="50sp"
                 android:layout_weight="1"
                 android:onClick="changeTip"
-                android:text="+" />
+                android:text="@string/plus_sign" />
         </LinearLayout>
 
         <!-- Tip Amount Row -->
@@ -89,15 +89,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tip Amount"
+                android:text="@string/tip_amount"
                 android:layout_weight="1"
                 style="@style/myTextViewStyle.myLabel"/>
             <TextView
                 android:id="@+id/tipAmountTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="$0.00" />
+                android:layout_weight="4" />
         </LinearLayout>
 
         <!-- Number of People Row -->
@@ -112,7 +111,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Number of People" />
+                android:text="@string/number_of_people" />
 
             <RadioGroup
                 android:id="@+id/numPeopleGroup"
@@ -126,23 +125,23 @@
                     android:id="@+id/onePersonRadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1 Person" />
+                    android:text="@string/_1_person" />
                 <RadioButton
                     android:id="@+id/twoPeopleRadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2 People" />
+                    android:text="@string/_2_people" />
 
                 <RadioButton
                     android:id="@+id/threePeopleRadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="3 People" />
+                    android:text="@string/_3_people" />
                 <RadioButton
                     android:id="@+id/fourPeopleRadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="4 People" />
+                    android:text="@string/_4_people" />
             </RadioGroup>
         </LinearLayout>
 
@@ -158,13 +157,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Net Amount" />
+                android:text="@string/net_amount" />
             <TextView
                 android:id="@+id/netAmountTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="$0.00" />
+                android:layout_weight="4" />
         </LinearLayout>
 
         <!-- Total Amount Row -->
@@ -180,14 +178,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Total per Person" />
+                android:text="@string/total_per_person" />
             <TextView
 
                 android:id="@+id/totalPerPersonTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="$0.00" />
+                android:layout_weight="4" />
         </LinearLayout>
 
     </LinearLayout>
