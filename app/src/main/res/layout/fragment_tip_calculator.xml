@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TipCalculatorFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Bill Amount Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <TextView
+                style="@style/myTextViewStyle.myLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/bill_amount"
+                android:labelFor="@id/billAmountEditText"/>
+
+            <EditText
+                android:id="@+id/billAmountEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:textStyle="bold"
+                android:importantForAutofill="no" />
+        </LinearLayout>
+
+        <!-- Tip Percent Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tip_percent"
+                android:layout_weight="1"
+
+                style="@style/myTextViewStyle.myLabel"/>
+
+            <Button
+                android:id="@+id/decreaseTipButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="@string/minus_sign" />
+
+            <TextView
+                android:id="@+id/tipPercentTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2" />
+
+            <Button
+                android:id="@+id/increaseTipButton"
+                android:layout_width="50sp"
+                android:layout_height="50sp"
+                android:layout_weight="1"
+                android:text="@string/plus_sign" />
+        </LinearLayout>
+
+        <!-- Tip Amount Row -->
+        <SeekBar
+            android:id="@+id/tipPercentSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tip_amount"
+                android:layout_weight="1"
+                style="@style/myTextViewStyle.myLabel"/>
+            <TextView
+                android:id="@+id/tipAmountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4" />
+        </LinearLayout>
+
+        <!-- Number of People Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="5"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/myTextViewStyle.myLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/number_of_people" />
+
+            <RadioGroup
+                android:id="@+id/numPeopleGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:orientation="vertical"
+                android:checkedButton="@id/twoPeopleRadioButton">
+
+                <RadioButton
+                    android:id="@+id/onePersonRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_1_person" />
+                <RadioButton
+                    android:id="@+id/twoPeopleRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_2_people" />
+
+                <RadioButton
+                    android:id="@+id/threePeopleRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_3_people" />
+                <RadioButton
+                    android:id="@+id/fourPeopleRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_4_people" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <!-- Net Amount Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <TextView
+                style="@style/myTextViewStyle.myLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/net_amount" />
+            <TextView
+                android:id="@+id/netAmountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4" />
+        </LinearLayout>
+
+        <!-- Total Amount Row -->
+        <LinearLayout
+            android:id="@+id/totalPerPersonRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <TextView
+                style="@style/myTextViewStyle.myLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/total_per_person" />
+            <TextView
+
+                android:id="@+id/totalPerPersonTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

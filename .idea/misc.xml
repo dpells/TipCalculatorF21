@@ -4,7 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/david/Desktop/f21/JAV1001/TipCalculatorF21/app/src/main/res/layout/activity_main.xml" value="0.18" />
+        <entry key="..\:/Users/david/Desktop/f21/JAV1001/TipCalculatorF21/app/src/main/res/layout/activity_main_two_pane.xml" value="0.17222222222222222" />
+        <entry key="..\:/Users/david/Desktop/f21/JAV1001/TipCalculatorF21/app/src/main/res/layout/activity_main_two_pane_land.xml" value="0.17222222222222222" />
+        <entry key="..\:/Users/david/Desktop/f21/JAV1001/TipCalculatorF21/app/src/main/res/layout/activity_main_two_pane_port.xml" value="0.17222222222222222" />
+        <entry key="..\:/Users/david/Desktop/f21/JAV1001/TipCalculatorF21/app/src/main/res/layout/activity_settings.xml" value="0.17222222222222222" />
+        <entry key="..\:/Users/david/Desktop/f21/JAV1001/TipCalculatorF21/app/src/main/res/layout/fragment_tip_calculator.xml" value="0.16284722222222223" />
         <entry key="..\:/Users/david/Desktop/f21/JAV1001/TipCalculatorF21/app/src/main/res/menu/options_menu.xml" value="0.33" />
+        <entry key="..\:/Users/david/Desktop/f21/JAV1001/TipCalculatorF21/app/src/main/res/menu/options_menu_two_pane.xml" value="0.17222222222222222" />
         <entry key="..\:/Users/david/Desktop/f21/JAV1001/TipCalculatorF21/app/src/main/res/xml/preferences.xml" value="0.1" />
       </map>
     </option>
